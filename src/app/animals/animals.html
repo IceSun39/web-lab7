@@ -1,0 +1,86 @@
+<section class="flex">
+  <h3>Завдання</h3>
+  <p>
+    Базовий клас: Тварина (поля: кличка, ріст - h в м)<br />
+    Метод: Вага тварини - k * h³ кг, де k — коефіцієнт.
+    Нащадок: Кішка (k = 15, поле — порода тварини)<br />
+    В нащадках: перевести вагу тварини в грами.
+  </p>
+</section>
+
+<section>
+  <form>
+    <fieldset>
+      <legend>Тварина</legend>
+
+      <input
+        type="text"
+        placeholder="Кличка"
+        id="animal-name"
+        #animalName
+      />
+
+      <input
+        type="number"
+        placeholder="0.2"
+        id="animal-height"
+        #animalHeight
+      />
+
+      <input
+        type="number"
+        placeholder="Коефіцієнт ваги"
+        id="animal-koef"
+        #animalKoef
+      />
+    </fieldset>
+
+    <fieldset>
+      <legend>Кіт</legend>
+
+      <input
+        type="text"
+        placeholder="Кличка"
+        id="cat-name"
+        #catName
+      />
+
+      <input
+        type="number"
+        placeholder="0.2"
+        id="cat-height"
+        #catHeight
+      />
+
+      <input
+        type="text"
+        placeholder="Порода"
+        id="cat-brade"
+        #catBrade
+      />
+    </fieldset>
+  </form>
+
+  <button
+    class="btn"
+    type="button"
+    (click)="
+      calcWeight(
+        animalHeight.value,
+        animalKoef.value,
+        animalName.value,
+        catName.value,
+        catBrade.value,
+        catHeight.value
+      )
+    "
+  >
+    <span>Розрахунок</span>
+  </button>
+
+  <section>
+    <p>Результати розрахунків</p>
+    <p>Тварина: {{ animal_show }}</p>
+    <p>Кіт: {{ cat_show }}</p>
+  </section>
+</section>

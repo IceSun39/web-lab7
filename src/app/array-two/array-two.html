@@ -1,0 +1,57 @@
+<section class="flex">
+  <h3>Завдання: двовимірний масив (варіант 4)</h3>
+  <p>
+    Створіть двовимірний цілочисельний масив A [1..10, 1..7] і знайдіть суму всіх
+    його елементів, що мають обидва непарні індекси (виділені кольором).
+    Елементи — цілі числа в діапазоні [{{ min }}, {{ max }}], їх можна змінювати.
+  </p>
+</section>
+
+<section>
+  <fieldset>
+    <legend>Масив A</legend>
+
+    <div class="table-wrap">
+      <table>
+        @for (row of grid.controls; track $index; let i = $index) {
+          <tr>
+            @for (cell of row.controls; track $index; let j = $index) {
+              <td>
+                <input
+                  type="number"
+                  step="1"
+                  [min]="min"
+                  [max]="max"
+                  [formControl]="cell"
+                  [class.counted]="isCounted(i, j)"
+                  [class.invalid]="cell.invalid && cell.touched"
+                  [attr.aria-label]="'A[' + (i + 1) + ',' + (j + 1) + ']'"
+                />
+              </td>
+            }
+          </tr>
+        }
+      </table>
+    </div>
+
+    @if (grid.invalid && grid.touched) {
+      <span class="error">
+        Усі елементи мають бути цілими числами від {{ min }} до {{ max }}.
+      </span>
+    }
+  </fieldset>
+
+  <div class="actions">
+    <button class="btn" type="button" (click)="generate()"><span>Згенерувати</span></button>
+    <button class="btn" type="button" (click)="calculate()" [disabled]="grid.invalid">
+      <span>Розрахунок</span>
+    </button>
+  </div>
+
+  @if (sum() !== null) {
+    <section>
+      <p>Результати розрахунків</p>
+      <p>Сума елементів з непарними індексами: {{ sum() }}</p>
+    </section>
+  }
+</section>

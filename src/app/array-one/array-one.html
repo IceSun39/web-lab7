@@ -1,0 +1,64 @@
+<section class="flex">
+  <h3>Завдання: одновимірний масив (варіант 4)</h3>
+  <p>
+    Створіть масив з п'яти прізвищ і виведіть на екран ті з них, які починаються
+    з певної літери, що вводиться з клавіатури.
+  </p>
+</section>
+
+<section>
+  <form [formGroup]="form" novalidate>
+    <fieldset>
+      <legend>Прізвища</legend>
+
+      @for (ctrl of surnames.controls; track $index) {
+        <input
+          type="text"
+          [placeholder]="'Прізвище ' + ($index + 1)"
+          maxlength="30"
+          [formControl]="ctrl"
+          [class.invalid]="ctrl.invalid && ctrl.touched"
+        />
+        @if (ctrl.invalid && ctrl.touched) {
+          <span class="error">
+            @if (ctrl.hasError('required')) {
+              Поле не може бути порожнім
+            } @else {
+              Дозволені лише літери, апостроф і дефіс
+            }
+          </span>
+        }
+      }
+    </fieldset>
+
+    <fieldset>
+      <legend>Літера</legend>
+
+      <input
+        type="text"
+        placeholder="Одна літера"
+        maxlength="1"
+        formControlName="letter"
+        [class.invalid]="form.controls.letter.invalid && form.controls.letter.touched"
+      />
+      @if (form.controls.letter.invalid && form.controls.letter.touched) {
+        <span class="error">Введіть рівно одну літеру</span>
+      }
+    </fieldset>
+  </form>
+
+  <button class="btn" type="button" (click)="calculate()" [disabled]="form.invalid">
+    <span>Розрахунок</span>
+  </button>
+
+  @if (result(); as list) {
+    <section>
+      <p>Результати розрахунків</p>
+      @if (list.length) {
+        <p>Прізвища на задану літеру: {{ list.join(', ') }}</p>
+      } @else {
+        <p>Прізвищ на задану літеру немає.</p>
+      }
+    </section>
+  }
+</section>
